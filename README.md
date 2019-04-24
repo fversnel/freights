@@ -5,8 +5,8 @@ Compiles and executes finite state machines.
 The library is built entirely out of pure functions, decisions about
 any kind of execution model are up to the user.
 
-`freights` is inspired by Akka's FSM DSL but instead of coupling the
-state machine logic with the Actor model, `freights` only
+freights is inspired by Akka's FSM DSL but instead of coupling the
+state machine logic with the Actor model, freights only
 provides the logic part.
 The execution model, be it `atoms`, `agents`, or some kind of actor system,
  can be chosen by the user. 
@@ -68,7 +68,7 @@ can be arbitrary clojure code but it should always return a new state or leave t
 
 ## Invoking the FSM
 
-To invoke the FSM we just create we can call it without arguments:
+To invoke the FSM we just created we can call it without arguments:
 
 ```clojure
 (example-fsm)
