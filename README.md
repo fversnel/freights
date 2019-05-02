@@ -15,7 +15,7 @@ The execution model, be it `atoms`, `agents`, or some kind of actor system,
 The FSM is designed to be a pure function consisting of:
 
 ```
-state -> message -> state
+state -> message -> state'
 ```
 
 In other words, each message will update the state of the FSM 
