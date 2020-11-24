@@ -21,7 +21,7 @@
      (pairs forms))))
 
 (defn fsm->fn
-  [{:keys [dispatch-fn dispatch-map initial-state] :as opts}]
+  [{:keys [dispatch-fn dispatch-map initial-state]}]
   (fn dispatch-message
     ([] initial-state)
     ([message]
@@ -34,7 +34,7 @@
          data)))))
 
 (defmacro fsm
-  [{:keys [dispatch-fn initial-state] :as opts} & forms]
+  [{:keys [dispatch-fn initial-state]} & forms]
   `(fsm->fn
     {:dispatch-fn ~dispatch-fn
      :dispatch-map (compile-dispatch-map ~@forms)
