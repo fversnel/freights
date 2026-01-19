@@ -26,8 +26,12 @@ to a new state.
 To create a finite state machine you have to do the following:
 
 ```clojure
+(require :reload '[org.fversnel.freights.core :as freights])
+```
+
+```clojure
 (def example-fsm
-  (fsm
+  (freights/fsm
    {:initial-state [:idle 0]
     :dispatch-fn (fn [state message] 
                    [(first state) message])}
@@ -71,7 +75,7 @@ can be arbitrary clojure code but it should always return a new state or leave t
 To invoke the FSM we just created we can call it without arguments:
 
 ```clojure
-(example-fsm)
+(freights/example-fsm)
 
 => [:idle 0]
 ```
@@ -83,7 +87,7 @@ We can send a message to our FSM by invoking it with the initial state and
 the message `:switch`:
 
 ```clojure
-(example-fsm (example-fsm) :switch)
+(freights/example-fsm (freights/example-fsm) :switch)
 => [:in-progress 1]
 ```
 
