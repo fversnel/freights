@@ -21,6 +21,10 @@ state -> message -> state'
 In other words, each message will update the state of the FSM 
 to a new state.
 
+## TODO
+
+- Define protocol for execution model to allow for uniform extension capabilities
+
 ## Creating an FSM
 
 To create a finite state machine you have to do the following:
