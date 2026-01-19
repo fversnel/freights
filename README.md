@@ -102,9 +102,10 @@ back into to the `example-fsm` again with another message.
 (require '[org.fversnel.freights.executor.agent :as fsmagent])
 
 (def agent-fsm (fsmagent/construct-fsm example-fsm))
+;; Alternatively you can supply the current state of the fsm
+(def agent-fsm (fsmagent/construct-fsm example-fsm [:in-progress 42]))
 
 (fsmagent/send-message agent-fsm :switch)
-
 ```
 
 Extract the current state of the agent:
@@ -119,6 +120,8 @@ Extract the current state of the agent:
 (require '[org.fversnel.freights.executor.atom :as fsmatom])
 
 (def atom-fsm (fsmatom/construct-fsm example-fsm))
+;; Alternatively you can supply the current state of the fsm
+(def atom-fsm (fsmatom/construct-fsm example-fsm [:in-progress 43]))
 
 (fsmatom/send-message atom-fsm :switch)
 ```
