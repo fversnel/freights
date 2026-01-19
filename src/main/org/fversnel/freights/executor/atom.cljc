@@ -1,18 +1,22 @@
-(ns org.fversnel.freights.executor.atom)
+(ns org.fversnel.freights.executor.atom
+  (:require [org.fversnel.freights :as-alias freights]))
 
-(defn fsm [fsm]
-  (atom
-   {:fsm fsm
-    :current-state (fsm)}))
+(defn construct-fsm
+  ([fsm]
+   (construct-fsm fsm (fsm)))
+  ([fsm current-state]
+   (atom
+    {::freights/fsm           fsm
+     ::freights/current-state current-state})))
 
 (defn send-message [atom-fsm message]
   (swap!
    atom-fsm
-   (fn [{:keys [fsm] :as atom-state}]
+   (fn [{::freights/keys [fsm] :as atom-state}]
      (update
       atom-state
-      :current-state
+      ::freights/current-state
       #(fsm % message)))))
 
 (defn current-state [atom-fsm]
-  (:current-state @atom-fsm))
+  (::freights/current-state @atom-fsm))

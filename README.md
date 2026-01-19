@@ -26,7 +26,7 @@ to a new state.
 To create a finite state machine you have to do the following:
 
 ```clojure
-(require :reload '[org.fversnel.freights.core :as freights])
+(require '[org.fversnel.freights.core :as freights])
 ```
 
 ```clojure
@@ -72,10 +72,12 @@ can be arbitrary clojure code but it should always return a new state or leave t
 
 ## Invoking the FSM
 
+### Without execution model
+
 To invoke the FSM we just created we can call it without arguments:
 
 ```clojure
-(freights/example-fsm)
+(example-fsm)
 
 => [:idle 0]
 ```
@@ -87,12 +89,45 @@ We can send a message to our FSM by invoking it with the initial state and
 the message `:switch`:
 
 ```clojure
-(freights/example-fsm (freights/example-fsm) :switch)
+(example-fsm (example-fsm) :switch)
 => [:in-progress 1]
 ```
 
 Now we get back the new state `[:in-progress 1]`, which we can feed
 back into to the `example-fsm` again with another message.
+
+### With `agent` execution model
+
+```clojure
+(require '[org.fversnel.freights.executor.agent :as fsmagent])
+
+(def agent-fsm (fsmagent/construct-fsm example-fsm))
+
+(fsmagent/send-message agent-fsm :switch)
+
+```
+
+Extract the current state of the agent:
+
+```clojure
+(fsmagent/current-state agent-fsm)
+```
+
+### With `atom` execution model
+
+```clojure
+(require '[org.fversnel.freights.executor.atom :as fsmatom])
+
+(def atom-fsm (fsmatom/construct-fsm example-fsm))
+
+(fsmatom/send-message atom-fsm :switch)
+```
+
+Extract the current state of the atom:
+
+```clojure
+(fsmatom/current-state atom-fsm)
+```
 
 ## How it works internally
 
