@@ -26,25 +26,25 @@ to a new state.
 To create a finite state machine you have to do the following:
 
 ```clojure
-(require '[org.fversnel.freights.core :as freights])
+(require '[org.fversnel.freights :as freights])
 ```
 
 ```clojure
 (def example-fsm
   (freights/fsm
-   {:initial-state [:idle 0]
-    :dispatch-fn (fn [state message] 
-                   [(first state) message])}
+   {::freights/initial-state [:idle 0]
+    ::freights/dispatch-fn   (fn [state message] 
+                               [(first state) message])}
 
    :idle
    ([[_ switch-count] message]
     :switch [:in-progress (inc switch-count)]
-    :stay [:idle switch-count])
+    :stay   [:idle switch-count])
 
    :in-progress
    ([[_ switch-count] message]
     :switch [:idle (inc switch-count)]
-    :stay [:in-progress switch-count])))
+    :stay   [:in-progress switch-count])))
 ```
 
 Let's disect this FSM definition:

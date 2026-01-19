@@ -1,4 +1,4 @@
-(ns org.fversnel.freights.core)
+(ns org.fversnel.freights)
 
 (def pairs (partial partition 2))
 
@@ -34,7 +34,7 @@
          data)))))
 
 (defmacro fsm
-  [{:keys [dispatch-fn initial-state]} & forms]
+  [{::keys [dispatch-fn initial-state]} & forms]
   `(fsm->fn
     ~dispatch-fn
     (compile-dispatch-map ~@forms)
