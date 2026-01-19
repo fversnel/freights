@@ -1,3 +1,5 @@
 target/
 .cpcache/
 .lein-repl-history
+.lsp/
+.clj-kondo/
