@@ -1,15 +1,7 @@
 (ns org.fversnel.freights.executor.atom
-  (:require [org.fversnel.freights :as-alias freights]))
+  (:require [org.fversnel.freights :as freights]))
 
-(defn construct-fsm
-  ([fsm]
-   (construct-fsm fsm (fsm)))
-  ([fsm current-state]
-   (atom
-    {::freights/fsm           fsm
-     ::freights/current-state current-state})))
-
-(defn send-message [atom-fsm message]
+(defn- internal-send-message! [atom-fsm message]
   (swap!
    atom-fsm
    (fn [{::freights/keys [fsm] :as atom-state}]
@@ -18,5 +10,17 @@
       ::freights/current-state
       #(fsm % message)))))
 
-(defn current-state [atom-fsm]
-  (::freights/current-state @atom-fsm))
+(defn construct-fsm
+  ([fsm]
+   (construct-fsm fsm (fsm)))
+  ([fsm current-state]
+   (let [atom-fsm (atom {::freights/fsm fsm
+                         ::freights/current-state current-state})]
+     (reify freights/Executor
+       (send-message! [_ message]
+         (internal-send-message! atom-fsm message))
+
+       (current-state [_]
+         (::freights/current-state @atom-fsm))
+
+       (underlying [_] atom-fsm)))))

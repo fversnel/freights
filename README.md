@@ -21,10 +21,6 @@ state -> message -> state'
 In other words, each message will update the state of the FSM 
 to a new state.
 
-## TODO
-
-- Define protocol for execution model to allow for uniform extension capabilities
-
 ## Creating an FSM
 
 To create a finite state machine you have to do the following:
@@ -107,15 +103,15 @@ back into to the `example-fsm` again with another message.
 
 (def agent-fsm (fsmagent/construct-fsm example-fsm))
 ;; Alternatively you can supply the current state of the fsm
-(def agent-fsm (fsmagent/construct-fsm example-fsm [:in-progress 42]))
+;;(def agent-fsm (fsmagent/construct-fsm example-fsm [:in-progress 42]))
 
-(fsmagent/send-message agent-fsm :switch)
+(freights/send-message! agent-fsm :switch)
 ```
 
 Extract the current state of the agent:
 
 ```clojure
-(fsmagent/current-state agent-fsm)
+(freights/current-state agent-fsm)
 ```
 
 ### With `atom` execution model
@@ -125,15 +121,15 @@ Extract the current state of the agent:
 
 (def atom-fsm (fsmatom/construct-fsm example-fsm))
 ;; Alternatively you can supply the current state of the fsm
-(def atom-fsm (fsmatom/construct-fsm example-fsm [:in-progress 43]))
+;;(def atom-fsm (fsmatom/construct-fsm example-fsm [:in-progress 43]))
 
-(fsmatom/send-message atom-fsm :switch)
+(freights/send-message! atom-fsm :switch)
 ```
 
 Extract the current state of the atom:
 
 ```clojure
-(fsmatom/current-state atom-fsm)
+(freights/current-state atom-fsm)
 ```
 
 ## How it works internally

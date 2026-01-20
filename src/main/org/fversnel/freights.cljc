@@ -1,5 +1,10 @@
 (ns org.fversnel.freights)
 
+(defprotocol Executor
+  (send-message! [this message])
+  (current-state [this])
+  (underlying [this]))
+
 (def pairs (partial partition 2))
 
 (defn message-handler->fn
