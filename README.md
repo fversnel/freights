@@ -96,23 +96,6 @@ the message `:switch`:
 Now we get back the new state `[:in-progress 1]`, which we can feed
 back into to the `example-fsm` again with another message.
 
-### With `agent` execution model
-
-```clojure
-(require '[org.fversnel.freights.executor.agent :as fsmagent])
-
-(def agent-fsm (fsmagent/construct-fsm example-fsm))
-;; Alternatively you can supply the current state of the fsm
-;;(def agent-fsm (fsmagent/construct-fsm example-fsm [:in-progress 42]))
-
-(freights/send-message! agent-fsm :switch)
-```
-
-Extract the current state of the agent:
-
-```clojure
-(freights/current-state agent-fsm)
-```
 
 ### With `atom` execution model
 
@@ -130,6 +113,24 @@ Extract the current state of the atom:
 
 ```clojure
 (freights/current-state atom-fsm)
+```
+
+### With `agent` execution model (JVM-only)
+
+```clojure
+(require '[org.fversnel.freights.executor.agent :as fsmagent])
+
+(def agent-fsm (fsmagent/construct-fsm example-fsm))
+;; Alternatively you can supply the current state of the fsm
+;;(def agent-fsm (fsmagent/construct-fsm example-fsm [:in-progress 42]))
+
+(freights/send-message! agent-fsm :switch)
+```
+
+Extract the current state of the agent:
+
+```clojure
+(freights/current-state agent-fsm)
 ```
 
 ## How it works internally
