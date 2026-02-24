@@ -1,3 +1,5 @@
+**Project was moved to: https://codeberg.org/fversnel/freights**
+
 # freights
 
 Compiles and executes finite state machines.
